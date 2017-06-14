@@ -2,23 +2,18 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import createBrowserHistory from 'history/createBrowserHistory'
 import { Provider } from 'mobx-react'
-import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
+import { syncHistoryWithStore } from 'mobx-react-router'
 import { Router } from 'react-router'
+
 import App from './App'
+import routingStore from './state/RoutingState'
+import userState from './state/UserState'
 
 const browserHistory = createBrowserHistory()
-const routingStore = new RouterStore()
-
-const stores = {
-  // Key can be whatever you want
-  routing: routingStore,
-  // ...other stores
-}
-
 const history = syncHistoryWithStore(browserHistory, routingStore)
 
 ReactDOM.render(
-  <Provider {...stores}>
+  <Provider routing={routingStore} userState={userState}>
     <Router history={history}>
       <App />
     </Router>
